@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="10" passed="10" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-12-07T15:42:08 PKT" name="EzyShopper Test Suite" finished-at="2025-12-07T15:43:26 PKT" duration-ms="77958">
+    <groups>
+    </groups>
+    <test started-at="2025-12-07T15:42:08 PKT" name="EzyShopper E-Commerce Tests" finished-at="2025-12-07T15:43:26 PKT" duration-ms="77958">
+      <class name="com.ezyshopper.tests.EzyShopperTests">
+        <test-method is-config="true" signature="setupClass()[pri:0, instance:com.ezyshopper.tests.EzyShopperTests@794cb805]" started-at="2025-12-07T15:42:08 PKT" name="setupClass" finished-at="2025-12-07T15:42:08 PKT" duration-ms="8" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupClass -->
+        <test-method signature="testUserRegistration()[pri:1, instance:com.ezyshopper.tests.EzyShopperTests@794cb805]" started-at="2025-12-07T15:42:08 PKT" name="testUserRegistration" description="User Registration Flow" finished-at="2025-12-07T15:42:15 PKT" duration-ms="6692" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testUserRegistration -->
+        <test-method signature="testUserLogin()[pri:2, instance:com.ezyshopper.tests.EzyShopperTests@794cb805]" started-at="2025-12-07T15:42:15 PKT" name="testUserLogin" description="User Login Flow" finished-at="2025-12-07T15:42:24 PKT" duration-ms="9443" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testUserLogin -->
+        <test-method signature="testHomepageVerification()[pri:3, instance:com.ezyshopper.tests.EzyShopperTests@794cb805]" started-at="2025-12-07T15:42:24 PKT" name="testHomepageVerification" description="Homepage Verification" finished-at="2025-12-07T15:42:26 PKT" duration-ms="1643" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testHomepageVerification -->
+        <test-method signature="testCategoryNavigation()[pri:4, instance:com.ezyshopper.tests.EzyShopperTests@794cb805]" started-at="2025-12-07T15:42:26 PKT" name="testCategoryNavigation" description="Category Navigation" finished-at="2025-12-07T15:42:39 PKT" duration-ms="12781" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCategoryNavigation -->
+        <test-method signature="testProductBrowsing()[pri:5, instance:com.ezyshopper.tests.EzyShopperTests@794cb805]" started-at="2025-12-07T15:42:39 PKT" name="testProductBrowsing" description="Product Browsing" finished-at="2025-12-07T15:42:44 PKT" duration-ms="5242" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testProductBrowsing -->
+        <test-method signature="testMultipleCategoryPages()[pri:6, instance:com.ezyshopper.tests.EzyShopperTests@794cb805]" started-at="2025-12-07T15:42:44 PKT" name="testMultipleCategoryPages" description="Verify Multiple Category Pages" finished-at="2025-12-07T15:42:47 PKT" duration-ms="2696" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testMultipleCategoryPages -->
+        <test-method signature="testAddToCart()[pri:7, instance:com.ezyshopper.tests.EzyShopperTests@794cb805]" started-at="2025-12-07T15:42:47 PKT" name="testAddToCart" description="Add Product to Cart" finished-at="2025-12-07T15:42:55 PKT" duration-ms="8050" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testAddToCart -->
+        <test-method signature="testAddAnotherProduct()[pri:8, instance:com.ezyshopper.tests.EzyShopperTests@794cb805]" started-at="2025-12-07T15:42:55 PKT" name="testAddAnotherProduct" description="Add Another Product to Cart" finished-at="2025-12-07T15:42:59 PKT" duration-ms="4399" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testAddAnotherProduct -->
+        <test-method signature="testViewCartMultipleItems()[pri:9, instance:com.ezyshopper.tests.EzyShopperTests@794cb805]" started-at="2025-12-07T15:42:59 PKT" name="testViewCartMultipleItems" description="View Cart with Multiple Items" finished-at="2025-12-07T15:43:11 PKT" duration-ms="12210" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testViewCartMultipleItems -->
+        <test-method signature="testEndToEndShopping()[pri:10, instance:com.ezyshopper.tests.EzyShopperTests@794cb805]" started-at="2025-12-07T15:43:11 PKT" name="testEndToEndShopping" description="End-to-End Shopping Flow" finished-at="2025-12-07T15:43:26 PKT" duration-ms="14601" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEndToEndShopping -->
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.ezyshopper.tests.EzyShopperTests@794cb805]" started-at="2025-12-07T15:43:26 PKT" name="tearDownClass" finished-at="2025-12-07T15:43:26 PKT" duration-ms="170" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownClass -->
+      </class> <!-- com.ezyshopper.tests.EzyShopperTests -->
+    </test> <!-- EzyShopper E-Commerce Tests -->
+  </suite> <!-- EzyShopper Test Suite -->
+</testng-results>

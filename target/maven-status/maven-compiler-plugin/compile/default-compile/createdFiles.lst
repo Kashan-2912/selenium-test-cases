@@ -1,0 +1,9 @@
+com\ezyshopper\pages\HomePage.class
+com\ezyshopper\pages\LoginPage.class
+com\ezyshopper\pages\CartPage.class
+com\ezyshopper\utils\SeleniumUtils.class
+com\ezyshopper\pages\SignUpPage.class
+com\ezyshopper\pages\AdminPage.class
+com\ezyshopper\pages\CategoryPage.class
+com\ezyshopper\utils\TestConfig.class
+com\ezyshopper\pages\NavigationBar.class

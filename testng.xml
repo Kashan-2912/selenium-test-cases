@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="EzyShopper Test Suite" parallel="false" thread-count="1">
+    <test name="EzyShopper E-Commerce Tests">
+        <classes>
+            <class name="com.ezyshopper.tests.EzyShopperTests">
+                <methods>
+                    <include name="testUserRegistration"/>
+                    <include name="testUserLogin"/>
+                    <include name="testHomepageVerification"/>
+                    <include name="testCategoryNavigation"/>
+                    <include name="testProductBrowsing"/>
+                    <include name="testMultipleCategoryPages"/>
+                    <include name="testAddToCart"/>
+                    <include name="testAddAnotherProduct"/>
+                    <include name="testViewCartMultipleItems"/>
+                    <include name="testEndToEndShopping"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
