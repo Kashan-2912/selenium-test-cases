@@ -42,21 +42,16 @@ public class SeleniumUtils {
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
 
-                // HEADLESS mode is required in Jenkins / EC2
                 chromeOptions.addArguments("--headless=new");
-
-                chromeOptions.addArguments("--disable-notifications");
-                chromeOptions.addArguments("--start-maximized");
-
-                // REQUIRED for running Chrome in Docker/Jenkins
                 chromeOptions.addArguments("--no-sandbox");
                 chromeOptions.addArguments("--disable-dev-shm-usage");
+                chromeOptions.addArguments("--disable-gpu");
+                chromeOptions.addArguments("--single-process");
                 chromeOptions.addArguments("--remote-allow-origins=*");
 
-                // MOST IMPORTANT FIX → prevents session creation error
-                String uniqueProfile = "/tmp/chrome-profile-" + System.currentTimeMillis();
-                chromeOptions.addArguments("--user-data-dir=" + uniqueProfile);
-
+                // unique profile for each session
+                String unique = "/tmp/chrome-profile-" + System.nanoTime();
+                chromeOptions.addArguments("--user-data-dir=" + unique);
 
                 driver = new ChromeDriver(chromeOptions);
                 break;
@@ -99,7 +94,14 @@ public class SeleniumUtils {
      */
     public static void safeClick(WebDriver driver, By locator) {
         WebElement element = waitForElementToBeClickable(driver, locator, TestConfig.EXPLICIT_WAIT);
-        element.click();
+        try {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+            Thread.sleep(200);
+            element.click();
+        } catch (Exception e) {
+            // fallback JS click
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        }
     }
     
     /**
