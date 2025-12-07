@@ -26,7 +26,7 @@ public class SeleniumUtils {
      */
     public static WebDriver initializeDriver(String browser) {
         WebDriver driver;
-        
+
         switch (browser.toLowerCase()) {
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
@@ -36,27 +36,37 @@ public class SeleniumUtils {
                 }
                 driver = new FirefoxDriver(firefoxOptions);
                 break;
-                
+
             case "chrome":
             default:
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
-                if (TestConfig.HEADLESS_MODE) {
-                    chromeOptions.addArguments("--headless");
-                }
+
+                // HEADLESS mode is required in Jenkins / EC2
+                chromeOptions.addArguments("--headless=new");
+
                 chromeOptions.addArguments("--disable-notifications");
                 chromeOptions.addArguments("--start-maximized");
+
+                // REQUIRED for running Chrome in Docker/Jenkins
+                chromeOptions.addArguments("--no-sandbox");
+                chromeOptions.addArguments("--disable-dev-shm-usage");
+                chromeOptions.addArguments("--remote-allow-origins=*");
+
+                // MOST IMPORTANT FIX → prevents session creation error
+                chromeOptions.addArguments("--user-data-dir=/tmp/chrome-profile");
+
                 driver = new ChromeDriver(chromeOptions);
                 break;
         }
-        
-        // Set timeouts
+
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(TestConfig.IMPLICIT_WAIT));
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(TestConfig.PAGE_LOAD_TIMEOUT));
         driver.manage().window().maximize();
-        
+
         return driver;
     }
+
     
     /**
      * Wait for element to be clickable
