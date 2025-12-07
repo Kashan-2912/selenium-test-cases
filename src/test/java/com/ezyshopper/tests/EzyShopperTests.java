@@ -642,7 +642,10 @@ public class EzyShopperTests {
         
         // Navigate to cart
         if (navigationBar.isCartLinkVisible()) {
-            navigationBar.clickCart();
+            WebElement cart = driver.findElement(By.xpath("//a[@href='/cart']"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", cart);
+            Thread.sleep(200);
+            cart.click();
             SeleniumUtils.waitForPageLoad(driver);
             
             try {
@@ -728,7 +731,11 @@ public class EzyShopperTests {
         System.out.println("✓ Step 3: Shoes category page loaded");
         
         // Step 4: View cart (should have 1 item from Test 7)
-        navigationBar.clickCart();
+        WebElement cart = driver.findElement(By.xpath("//a[@href='/cart']"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", cart);
+        Thread.sleep(200);
+        cart.click();
+        SeleniumUtils.waitForPageLoad(driver);
         SeleniumUtils.waitForPageLoad(driver);
         
         try {
