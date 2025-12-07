@@ -60,6 +60,10 @@ public class SeleniumUtils {
                 // Prevent crashes in containerized environments
                 chromeOptions.addArguments("--disable-crash-reporter");
                 chromeOptions.addArguments("--disable-in-process-stack-traces");
+                chromeOptions.addArguments("--disable-features=VizDisplayCompositor");
+                
+                // Set page load strategy to reduce timeouts
+                chromeOptions.setPageLoadStrategy(org.openqa.selenium.PageLoadStrategy.NORMAL);
 
                 // MOST IMPORTANT FIX → prevents session creation error
                 String uniqueProfile = "/tmp/chrome-profile-" + System.currentTimeMillis();
