@@ -106,13 +106,13 @@ WARNING: Unable to find version of CDP to use for 142.0.7444.177. You may need t
     <system-out><![CDATA[
 --- Test 4: Category Navigation ---
 Testing Jeans category...
-Current URL: http://localhost:5173/category/jeans
+Current URL: http://13.234.238.153:5174/category/jeans
 ✓ Jeans category loaded
 Testing T-shirts category...
-Current URL: http://localhost:5173/category/t-shirts
+Current URL: http://13.234.238.153:5174/category/t-shirts
 ✓ T-shirts category loaded
 Testing Shoes category...
-Current URL: http://localhost:5173/category/shoes
+Current URL: http://13.234.238.153:5174/category/shoes
 ✓ Shoes category loaded
 ✓ Multiple category navigation successful
 ]]></system-out>
@@ -121,7 +121,7 @@ Current URL: http://localhost:5173/category/shoes
     <system-out><![CDATA[
 --- Test 5: Product Browsing ---
 Navigating to Jeans category...
-Current URL: http://localhost:5173/category/jeans
+Current URL: http://13.234.238.153:5174/category/jeans
 Product count found: 1
 ✓ Products found: 1
 First product name: Jean 1
@@ -141,7 +141,7 @@ First product price: $99
     <system-out><![CDATA[
 --- Test 7: Add Product to Cart ---
 Navigating to Jeans category...
-Current URL: http://localhost:5173/category/jeans
+Current URL: http://13.234.238.153:5174/category/jeans
 Products available: 1
 Attempting to add product: Jean 1
 ✓ Add to cart button clicked
