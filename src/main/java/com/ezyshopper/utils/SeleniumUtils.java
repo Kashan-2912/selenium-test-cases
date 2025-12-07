@@ -47,13 +47,19 @@ public class SeleniumUtils {
 
                 chromeOptions.addArguments("--disable-notifications");
                 chromeOptions.addArguments("--start-maximized");
+                chromeOptions.addArguments("--window-size=1920,1080");
 
                 // REQUIRED for running Chrome in Docker/Jenkins
                 chromeOptions.addArguments("--no-sandbox");
                 chromeOptions.addArguments("--disable-dev-shm-usage");
                 chromeOptions.addArguments("--disable-gpu");
-                chromeOptions.addArguments("--single-process");
+                chromeOptions.addArguments("--disable-software-rasterizer");
+                chromeOptions.addArguments("--disable-extensions");
                 chromeOptions.addArguments("--remote-allow-origins=*");
+                
+                // Prevent crashes in containerized environments
+                chromeOptions.addArguments("--disable-crash-reporter");
+                chromeOptions.addArguments("--disable-in-process-stack-traces");
 
                 // MOST IMPORTANT FIX → prevents session creation error
                 String uniqueProfile = "/tmp/chrome-profile-" + System.currentTimeMillis();
