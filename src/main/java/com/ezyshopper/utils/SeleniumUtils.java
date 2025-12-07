@@ -54,7 +54,9 @@ public class SeleniumUtils {
                 chromeOptions.addArguments("--remote-allow-origins=*");
 
                 // MOST IMPORTANT FIX → prevents session creation error
-                chromeOptions.addArguments("--user-data-dir=/tmp/chrome-profile");
+                String uniqueProfile = "/tmp/chrome-profile-" + System.currentTimeMillis();
+                chromeOptions.addArguments("--user-data-dir=" + uniqueProfile);
+
 
                 driver = new ChromeDriver(chromeOptions);
                 break;
