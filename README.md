@@ -1,59 +1,83 @@
 # EzyShopper - Selenium Test Suite
 
 ## Overview
-This directory contains comprehensive Selenium test automation for the EzyShopper e-commerce application. The test suite includes 10 test cases covering critical user flows and functionality.
+This directory contains comprehensive Selenium test automation for the EzyShopper e-commerce application. The test suite includes 10 sequential test cases that cover the complete user journey from registration to shopping cart management.
+
+**Test Execution Strategy:**
+- Test 1 (User Registration): Opens and closes its own browser session
+- Tests 2-10: Run in a single continuous browser session with a logged-in user
+- Tests must run in order due to dependencies (e.g., login is required for cart operations)
+- Each test builds upon the state created by previous tests
 
 ## Test Cases
 
-### 1. **Homepage Load Verification**
-- Verifies the homepage loads correctly
-- Checks page title and navigation elements
-- Validates all category sections are visible
+The test suite contains 10 comprehensive test cases that run sequentially to validate the complete e-commerce functionality:
 
-### 2. **User Registration Flow**
-- Tests complete user registration process
-- Validates form submission
-- Verifies successful account creation
+### 1. **User Registration Flow**
+- Opens browser and navigates to sign-up page
+- Fills registration form with unique email
+- Submits form and verifies successful registration
+- Validates user is logged in after registration
+- Browser closes after this test completes
 
-### 3. **User Login Flow**
-- Tests user authentication with valid credentials
-- Verifies login success indicators
-- Validates redirect to homepage
+### 2. **User Login Flow**
+- Opens new browser session (stays open for remaining tests)
+- Creates a test user account via signup
+- Logs out and then tests login functionality
+- Validates login with the created credentials
+- Verifies cart link and logout button are visible
+- User remains logged in for all subsequent tests
 
-### 4. **User Logout Flow**
-- Tests logout functionality
-- Verifies session is cleared
-- Validates navigation elements update correctly
+### 3. **Homepage Verification**
+- Verifies homepage loads correctly for logged-in user
+- Checks that user session persists
+- Validates product categories are visible
+- Confirms navigation elements are present
 
-### 5. **Category Navigation**
-- Tests navigation to different product categories
-- Validates URL routing
-- Verifies category page loads with correct content
+### 4. **Category Navigation**
+- Tests navigation to multiple product categories (Jeans, T-shirts, Shoes)
+- Validates URL routing for each category
+- Verifies each category page loads correctly
+- Tests navigation back to homepage between categories
 
-### 6. **Product Browsing**
-- Tests product display in category pages
-- Validates product information (name, price, image)
-- Verifies "Add to Cart" buttons are present
+### 5. **Product Browsing**
+- Navigates to Jeans category
+- Verifies products are displayed
+- Validates product information (name, price)
+- Counts and displays number of available products
+- Handles cases where no products are available
+
+### 6. **Verify Multiple Category Pages**
+- Tests navigation to Glasses category
+- Tests navigation to Bags category
+- Validates URL contains correct category path for each
+- Ensures category pages load properly
 
 ### 7. **Add Product to Cart**
-- Tests adding products to shopping cart
-- Validates cart count updates
-- Verifies success notifications
+- Navigates to Jeans category
+- Adds first available product to cart
+- Verifies cart count badge appears in navigation
+- Validates cart count increases after adding product
 
-### 8. **View and Manage Cart**
-- Tests cart page functionality
-- Validates cart item display
-- Tests update quantity and remove item operations
+### 8. **Add Another Product to Cart**
+- Navigates to T-shirts category
+- Adds another product to cart
+- Verifies cart count updates with multiple items
+- Tests cart can handle multiple products from different categories
 
-### 9. **Admin Dashboard Access**
-- Tests admin authentication and authorization
-- Validates admin dashboard access
-- Tests navigation between admin tabs (Create Product, Products, Analytics)
+### 9. **View Cart with Multiple Items**
+- Navigates to cart page
+- Verifies cart page loads correctly
+- Validates cart displays multiple items from previous tests
+- Confirms at least 2 items are present in cart
 
 ### 10. **End-to-End Shopping Flow**
-- Complete user journey from browse to checkout
-- Tests product selection, cart operations
-- Validates checkout process initiation
+- Validates complete shopping journey
+- Navigates through homepage → category → cart
+- Verifies user remains logged in throughout
+- Tests browsing Shoes category
+- Views cart to verify items from previous tests
+- Confirms end-to-end flow works seamlessly
 
 ## Project Structure
 
@@ -145,15 +169,19 @@ public static final boolean HEADLESS_MODE = false;
 
 ## Running Tests
 
-### Run All Tests
+### Run All Tests (Recommended)
 ```bash
 mvn test
 ```
+**Note:** It's highly recommended to run all tests together in sequence as they have dependencies.
 
-### Run Specific Test
+### Run Specific Test (Advanced)
 ```bash
-mvn test -Dtest=EzyShopperTests#testHomepageLoads
+# Run individual test (may fail if dependencies not met)
+mvn test -Dtest=EzyShopperTests#testUserRegistration
+mvn test -Dtest=EzyShopperTests#testUserLogin
 ```
+**Warning:** Running individual tests 3-10 will likely fail as they depend on the logged-in state from Test 2.
 
 ### Run with TestNG XML
 ```bash
@@ -161,10 +189,23 @@ mvn test -DsuiteXmlFile=testng.xml
 ```
 
 ### Run in Headless Mode
-Update `TestConfig.HEADLESS_MODE = true` in TestConfig.java
+Update `TestConfig.HEADLESS_MODE = true` in TestConfig.java before running
 
 ### Run with Different Browser
-Update `TestConfig.BROWSER = "firefox"` in TestConfig.java
+Update `TestConfig.BROWSER` in TestConfig.java:
+- Supported values: `"chrome"`, `"firefox"`, `"edge"`
+
+## Test Execution Notes
+
+1. **Sequential Execution**: Tests are designed to run in order (priority 1-10)
+2. **Browser Sessions**:
+   - Test 1: Opens and closes its own browser
+   - Tests 2-10: Share a single browser session
+3. **State Management**:
+   - Test 2 creates a user and logs in
+   - Tests 7-8 add products to cart
+   - Tests 9-10 verify the accumulated cart state
+4. **Execution Time**: Full suite typically takes 2-3 minutes to complete
 
 ## Test Reports
 
@@ -208,33 +249,65 @@ public class HomePage {
 2. **Explicit Waits**: Uses WebDriverWait for better synchronization
 3. **Utility Methods**: Reusable methods for common operations
 4. **Configuration Management**: Centralized configuration in TestConfig
-5. **Screenshot Capture**: Captures screenshots on failure
-6. **Descriptive Test Names**: Clear test method names and descriptions
-7. **Test Priorities**: Tests run in logical order
-8. **Independent Tests**: Each test can run independently
+5. **Descriptive Test Names**: Clear test method names and descriptions with @Test annotations
+6. **Test Priorities**: Tests run in logical order (@Test priority attribute)
+7. **Sequential Test Flow**: Tests 2-10 maintain browser session for realistic user journey
+8. **Unique Test Data**: Generates unique emails using timestamps to avoid conflicts
+9. **Defensive Testing**: Handles cases where products may not be available
+10. **Detailed Console Logging**: Provides step-by-step execution feedback
+
+## Test Flow and Dependencies
+
+**Important:** Tests are designed to run sequentially due to the following dependencies:
+
+- **Test 1** (Registration): Independent - runs in its own browser session
+- **Test 2** (Login): Creates user account and establishes logged-in session for all remaining tests
+- **Tests 3-6**: Verify navigation and browsing (require logged-in state from Test 2)
+- **Tests 7-8**: Add products to cart (require logged-in state and build cart state)
+- **Tests 9-10**: Validate cart and end-to-end flow (require cart items from Tests 7-8)
+
+Running tests out of order or individually may cause failures due to missing prerequisites.
 
 ## Troubleshooting
 
 ### Common Issues:
 
 1. **Application not running**
-   - Ensure frontend and backend are running
+   - Ensure frontend is running at http://localhost:5173
+   - Ensure backend is running at http://localhost:3000
    - Check URLs in TestConfig match your setup
 
-2. **WebDriver issues**
+2. **Tests 3-10 fail but Test 1-2 pass**
+   - This is normal if running tests individually
+   - Tests 3-10 require logged-in state from Test 2
+   - Solution: Run full test suite with `mvn test`
+
+3. **WebDriver issues**
    - WebDriverManager should auto-download drivers
-   - Check internet connection
+   - Check internet connection for first-time driver download
    - Update WebDriverManager version if needed
+   - Ensure Chrome/Firefox browser is installed
 
-3. **Element not found**
+4. **Element not found errors**
+   - Application may still be loading - tests include sleep statements
    - Check if application UI has changed
-   - Update locators in page objects
-   - Increase wait times if needed
+   - Update locators in page objects if needed
+   - Verify application is running on correct ports
 
-4. **Test credentials**
-   - Create test user in application first
-   - Update credentials in TestConfig
-   - Or modify tests to create users dynamically
+5. **"No products available" warnings**
+   - Tests handle this gracefully and won't fail
+   - Ensure database has products in categories (Jeans, T-shirts, Shoes, Glasses, Bags)
+   - Check backend is properly seeded with test data
+
+6. **Cart tests fail (Tests 7-9)**
+   - Ensure products exist in Jeans and T-shirts categories
+   - Verify user can add products to cart manually in the application
+   - Check browser console for JavaScript errors
+
+7. **Test timeout errors**
+   - Increase wait times in test methods if application is slow
+   - Check system performance and available memory
+   - Reduce number of browser tabs/applications running
 
 ## Continuous Integration
 
@@ -248,13 +321,20 @@ mvn clean test -DsuiteXmlFile=testng.xml
 ## Future Enhancements
 
 - [ ] Add screenshot capture on test failure
-- [ ] Integrate ExtentReports for better reporting
-- [ ] Add data-driven testing with external data sources
-- [ ] Implement parallel test execution
+- [ ] Implement truly independent tests (remove dependencies)
+- [ ] Add checkout and payment flow tests
+- [ ] Add admin functionality tests (product creation, management)
+- [ ] Integrate ExtentReports for better HTML reporting
+- [ ] Add data-driven testing with external data sources (Excel/CSV)
+- [ ] Implement parallel test execution for faster runs
 - [ ] Add API testing for backend validation
 - [ ] Integrate with BrowserStack/Sauce Labs for cross-browser testing
 - [ ] Add performance testing metrics
-- [ ] Implement CI/CD pipeline integration
+- [ ] Implement CI/CD pipeline integration (GitHub Actions/Jenkins)
+- [ ] Add test data setup/teardown scripts
+- [ ] Implement soft assertions for better error reporting
+- [ ] Add mobile responsive testing
+- [ ] Create test data factory for consistent test scenarios
 
 ## Contributing
 
@@ -267,11 +347,16 @@ When adding new test cases:
 
 ## Notes
 
-- Tests require the application to be running locally
-- Some tests may require specific data (products, users) to exist
-- Admin tests require admin user credentials
-- Cart and checkout tests require products to be available
-- Consider using test data setup scripts for consistent test execution
+- Tests require the application to be running locally (frontend on port 5173, backend on port 3000)
+- **Tests must run in sequential order** - they are NOT independent
+- Test 1 runs in its own browser session, Tests 2-10 share a browser session
+- Tests 2-10 depend on logged-in user state created in Test 2
+- Tests 7-8 add products to cart, Tests 9-10 verify those cart items
+- Products must exist in database for tests to fully pass (Jeans, T-shirts, Shoes, Glasses, Bags categories)
+- Unique email addresses are generated using timestamps to avoid conflicts
+- Tests include defensive checks and will log warnings instead of failing when products are unavailable
+- Some tests use Thread.sleep() for synchronization - not ideal but works for demo purposes
+- Full test suite execution takes approximately 2-3 minutes
 
 ## Contact
 
