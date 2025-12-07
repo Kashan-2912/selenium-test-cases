@@ -5,9 +5,11 @@ package com.ezyshopper.utils;
  */
 public class TestConfig {
     
-    // Base URLs
-    public static final String BASE_URL = "http://localhost:5173";
-    public static final String BACKEND_URL = "http://localhost:3000";
+    // Base URLs - can be overridden by system properties or environment variables
+    public static final String BASE_URL = System.getProperty("baseUrl", 
+        System.getenv("BASE_URL") != null ? System.getenv("BASE_URL") : "http://13.234.238.153:5174");
+    public static final String BACKEND_URL = System.getProperty("backendUrl", 
+        System.getenv("BACKEND_URL") != null ? System.getenv("BACKEND_URL") : "http://13.234.238.153:3001");
     
     // Test User Credentials
     public static final String TEST_USER_EMAIL = "testuser@example.com";
@@ -25,7 +27,7 @@ public class TestConfig {
     
     // Browser Configuration
     public static final String BROWSER = "chrome"; // chrome, firefox, edge
-    public static final boolean HEADLESS_MODE = false;
+    public static final boolean HEADLESS_MODE = System.getProperty("headless", "true").equalsIgnoreCase("true");
     
     // Screenshot Directory
     public static final String SCREENSHOT_DIR = "test-output/screenshots/";
