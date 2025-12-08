@@ -55,6 +55,7 @@ public class SeleniumUtils {
                 chromeOptions.addArguments("--disable-gpu");
                 chromeOptions.addArguments("--disable-software-rasterizer");
                 chromeOptions.addArguments("--disable-extensions");
+                chromeOptions.addArguments("--disable-dev-tools");
                 chromeOptions.addArguments("--remote-allow-origins=*");
                 
                 // Prevent crashes in containerized environments
