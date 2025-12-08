@@ -23,11 +23,11 @@ public class TestConfig {
     // Timeouts
     public static final int IMPLICIT_WAIT = 10;
     public static final int EXPLICIT_WAIT = 15;
-    public static final int PAGE_LOAD_TIMEOUT = 120;
+    public static final int PAGE_LOAD_TIMEOUT = 30;
     
     // Browser Configuration
     public static final String BROWSER = "chrome"; // chrome, firefox, edge
-    public static final boolean HEADLESS_MODE = System.getProperty("headless", "true").equalsIgnoreCase("true");
+    public static final boolean HEADLESS_MODE = false;
     
     // Screenshot Directory
     public static final String SCREENSHOT_DIR = "test-output/screenshots/";
