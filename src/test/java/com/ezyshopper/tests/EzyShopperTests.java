@@ -8,8 +8,12 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
+
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,6 +32,8 @@ public class EzyShopperAppTests {
 
     private static final String BASE_URL = System.getProperty("baseUrl", 
         System.getenv("BASE_URL") != null ? System.getenv("BASE_URL") : "http://localhost:5173");
+    private static final String REMOTE_URL = System.getProperty("seleniumRemoteUrl",
+        System.getenv("SELENIUM_REMOTE_URL") != null ? System.getenv("SELENIUM_REMOTE_URL") : "");
     private static String testEmail;
     private static final String TEST_PASSWORD = "Test@123456";
 
@@ -38,7 +44,11 @@ public class EzyShopperAppTests {
         log.info("  Target: {}", BASE_URL);
         log.info("========================================");
 
-        WebDriverManager.chromedriver().setup();
+        if (REMOTE_URL == null || REMOTE_URL.isEmpty()) {
+            WebDriverManager.chromedriver().setup();
+        } else {
+            log.info("Remote mode enabled, skipping local driver setup");
+        }
         testEmail = "testuser" + System.currentTimeMillis() + "@test.com";
         log.info("Test Email: {}", testEmail);
     }
@@ -55,7 +65,16 @@ public class EzyShopperAppTests {
         options.addArguments("--remote-allow-origins=*", "--window-size=1920,1080");
         options.setExperimentalOption("excludeSwitches", Arrays.asList("enable-automation"));
 
-        driver = new ChromeDriver(options);
+        if (REMOTE_URL != null && !REMOTE_URL.isEmpty()) {
+            try {
+                log.info("Using remote WebDriver: {}", REMOTE_URL);
+                driver = new RemoteWebDriver(new URL(REMOTE_URL), options);
+            } catch (MalformedURLException e) {
+                throw new RuntimeException("Invalid SELENIUM_REMOTE_URL: " + REMOTE_URL, e);
+            }
+        } else {
+            driver = new ChromeDriver(options);
+        }
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
     }
